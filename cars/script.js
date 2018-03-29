@@ -2,6 +2,9 @@ var selectedBrand = "";										//Kintamasis pasirenktam brand'ui is droplist'o
 var selectedModel = "";										//Kintamasis pasirenktam modeliui
 var Brands = [];											 //Masyvas Gamintojams
 var Models = [];											//Masyvas modeliams
+var BrandArray = [];
+var ModelArray = [];
+var h = "";
 
 for (i = 0; i < CARS.length; i++) {							//Is CARS masyvo trauksim brand reiksmes
 	if (Brands.indexOf(CARS[i].brand) === -1) {				//Jeigu Brands masyve nera tokios pat "brand" reiksmes kaip ir CARS
@@ -44,8 +47,40 @@ $(function () {												//Inicijuojam nekenciama JQuery.....lieviausia kalba 
 	
 	$('body').on('click', '.modelItems', function () {														//Funkcija inicijuojama paspaudus betkuri dropdown elementa
 		$(this).parents(".dropModel").find('.btn').html($(this).text());									//Pervadinam dropdown elementa, kad butu aiskus pasirinkimas
-		selectedModel = ($(this).text());
-	});
+        selectedModel = ($(this).text());
+        
+        BrandArray = CARS.filter(function(car){
+            return car.brand == selectedBrand;
+        });
+
+        ModelArray = CARS.filter(function(car){
+            return car.model == selectedModel;
+        });
+        
+       
+        
+    });
+
+    $("#btn_search").click(function printCars(){                                     //Kazkodel nespausdina
+        // alert("TEST");
+        let h = "";
+        for (i = 0; i < BrandArray.length; i++){
+            let car = BrandArray[i];
+            console.log(car);
+            h = h + `
+            <div>
+                <img></img>
+                <h4>${car.brand} ${car.model}</h4>
+                
+            </div>
+            `;
+        };
+
+        $("#result").html(h);
+    });
+    
+
+    
 
 
 });
